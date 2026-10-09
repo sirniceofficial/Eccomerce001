@@ -1,0 +1,10 @@
+project_id = "ttozyhlimzadnguukcfe"
+
+[functions.shopping-recommendations]
+verify_jwt = true
+
+[functions.create-order]
+verify_jwt = true
+
+[functions.send-order-notification]
+verify_jwt = true

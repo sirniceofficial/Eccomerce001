@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+.kilo
+.lovable
+.env
+.env.*
+!.env.example
