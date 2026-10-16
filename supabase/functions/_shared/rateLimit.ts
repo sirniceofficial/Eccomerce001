@@ -11,7 +11,7 @@ export interface RateLimitOptions {
 
 export async function checkRateLimit(opts: RateLimitOptions): Promise<{ allowed: boolean; retryAfter?: number }> {
   const url = Deno.env.get("SUPABASE_URL")!;
-  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const serviceKey = Deno.env.get("SUPABASE_SECRET_KEY") ?? Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const admin = createClient(url, serviceKey);
   const sinceIso = new Date(Date.now() - opts.windowSeconds * 1000).toISOString();
 

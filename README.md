@@ -64,6 +64,21 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
+## Deploying this repository to Vercel with Supabase
+
+For the Vite app at the repository root, use `npm run build` as the build command and `dist` as the output directory. In Vercel, set these environment variables for Production (and Preview if needed):
+
+```env
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+```
+
+Use the URL and publishable key from the same Supabase project referenced by `supabase/config.toml`. The Vite app does not read `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Save the variables and redeploy because Vite embeds them at build time. Never expose a Supabase secret or database password in a `VITE_` variable.
+
+Apply the migrations in `supabase/migrations` and deploy the functions in `supabase/functions` to that same Supabase project. The `ai-recommendations` function also requires the server-side `LOVABLE_API_KEY` Supabase secret; without it, recommendations are unavailable. Do not add this key to Vercel frontend variables.
+
+This repository is configured for Supabase project `pmydkqawndyttdapnqis`. After authenticating the Supabase CLI and configuring the Edge Function secrets (including a rotated `SUPABASE_SECRET_KEY` and `LOVABLE_API_KEY`), deploy the functions with `npm run functions:deploy`. Apply database migrations separately with the Supabase CLI after confirming the target project.
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!
